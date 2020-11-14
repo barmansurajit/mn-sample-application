@@ -1,0 +1,5 @@
+micronaut:
+  application:
+    name: mnSampleApplication
+  server:
+    port: 5000
