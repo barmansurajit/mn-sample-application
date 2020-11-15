@@ -93,7 +93,6 @@
     </dependencyManagement>
 
     <build>
-        <finalName>mn-sample-application</finalName>
         <plugins>
             <plugin>
                 <groupId>io.micronaut.build</groupId>
