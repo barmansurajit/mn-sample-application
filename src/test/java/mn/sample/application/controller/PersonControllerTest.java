@@ -51,7 +51,7 @@ class PersonControllerTest {
 
         // act
         Person[] persons = client.toBlocking()
-                .retrieve(HttpRequest.GET("/persons"),Person[].class);
+                .retrieve(HttpRequest.GET("/persons/all"),Person[].class);
 
         // assert
         Assertions.assertTrue(persons.length > 0);

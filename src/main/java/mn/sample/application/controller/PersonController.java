@@ -11,14 +11,20 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
-@Controller("/persons")
+@Controller
 public class PersonController {
     private static final Logger LOGGER = LoggerFactory.getLogger(PersonController.class);
 
     List<Person> persons = new ArrayList<>();
 
-    @Post
+    @Get()
+    public String welcome(){
+        return "Welcome";
+    }
+
+    @Post("/persons")
     public Person add(Person person) {
         LOGGER.info("Adding a person");
         person.setId(persons.size() + 1);
@@ -26,7 +32,7 @@ public class PersonController {
         return person;
     }
 
-    @Get("/{id:4}")
+    @Get("/persons/{id:4}")
     public Optional<Person> findById(@NotNull Integer id) {
         LOGGER.info("Finding a person {}", id);
         return persons.stream()
@@ -34,9 +40,21 @@ public class PersonController {
                 .findFirst();
     }
 
-    @Get
+    @Get("/persons/all")
     public List<Person> findAll() {
         LOGGER.info("Returning all persons");
         return persons;
+    }
+
+   @Get("/persons/ages")
+    public List<Integer> findAllAges() {
+       LOGGER.info("Returning all ages");
+       return persons.stream().map(Person::getAge).collect(Collectors.toList());
+   }
+
+    @Get("/persons/names")
+    public List<String> findAllNames() {
+        LOGGER.info("Returning all names");
+        return persons.stream().map(Person::getFirstName).collect(Collectors.toList());
     }
 }
